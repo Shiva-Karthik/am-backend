@@ -1,12 +1,12 @@
 const express = require("express");
-const Flat = require("../model/flat.model");
+const Flat = require("../models/flat.model");
 
 const router = express.Router();
-const Resident = require('../model/resident.model')
+const Resident = require('../models/resident.model')
 router.post("/post", async (req, res) => {
   try {
-    const flatList = await Flat.create(req.body);
-    return res.status(200).send(flatList);
+    const flat = await Flat.create(req.body);
+    return res.status(200).send(flat);
   } catch (err) {
     return res.status(400).send(err.message);
   }
