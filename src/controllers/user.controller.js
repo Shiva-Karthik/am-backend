@@ -1,5 +1,14 @@
 const express = require("express");
-const userSchema = require("../models/user.model");
+const User = require("../models/user.model");
 
 const router = express.Router();
+router.get('/list', async (req, res) => {
+    try {
+        const user = await User.find().lean().exec();
+        return res.status(200).send(user)
+    }
+    catch(err){
+        return res.status(400).send({message : "users not found"})
+    }
+})
 module.exports = router;
