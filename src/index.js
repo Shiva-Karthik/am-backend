@@ -6,12 +6,16 @@ app.use(express.json());
 require("dotenv").config()
 
 const connect = require("./configs/db");
-const userController = require("./controllers/manager.controller");
+const userController = require("./controllers/user.controller");
+const flatController = require("./controllers/flat.controller")
+const residentController = require("./controllers/resident.controller")
+app.use(express.static('public'));
 const { register, login, newToken } = require("./controllers/auth.controller");
 
 app.post("/register", register);
 app.post("/login", login);
-
+app.use("/resident",residentController)
+app.use("/flat",flatController)
 app.use("/user", userController);
 
 const PORT = process.env.PORT || 8080;
