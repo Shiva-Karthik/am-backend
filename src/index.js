@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
+require("dotenv").config()
 
 const connect = require("./configs/db");
 const userController = require("./controllers/user.controller");
@@ -13,7 +14,9 @@ app.post("/login", login);
 
 app.use("/user", userController);
 
-app.listen(8080, async () => {
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, async () => {
     try {
         await connect();
         console.log("Listening on port 8080");
