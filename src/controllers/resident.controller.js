@@ -13,7 +13,7 @@ router.post("/post", async (req, res) => {
 });
 router.get('/list', async (req, res) => {
   try {
-    const residentData = await Resident.find().populate([{path : 'userId'}, {path : "flatId"}]).lean().exec();
+    const residentData = await Resident.find().populate([{path : "flatId"}]).lean().exec();
     return res.status(200).send(residentData);
   }
   catch(err) {
@@ -24,7 +24,7 @@ router.get('/list', async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const flatID = req.params.id;
-    const resident = await Resident.find({flatId : flatID}).populate([{path : 'userId', select : ["firstName", "lastName", "type"]}]).select({flatId : 0}).lean().exec();
+    const resident = await Resident.find({flatId : flatID}).select({flatId : 0}).lean().exec();
     return res.status(200).send(resident);
   } catch (err) {
     return res.status(400).send(err.message);
