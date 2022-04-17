@@ -6,7 +6,7 @@ app.use(express.json());
 require("dotenv").config()
 
 const connect = require("./configs/db");
-const userController = require("./controllers/user.controller");
+const userController = require("./controllers/manager.controller");
 const { register, login, newToken } = require("./controllers/auth.controller");
 
 app.post("/register", register);
