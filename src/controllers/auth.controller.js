@@ -9,7 +9,7 @@ const newToken = (user) => {
 const register = async (req, res) => {
   try {
     let user = await userSchema
-      .findOne({ email: req.body.email })
+      .findOne({ username: req.body.username })
       .lean()
       .exec();
 
@@ -27,14 +27,14 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const user = await userSchema.findOne({ email: req.body.email });
+    const user = await userSchema.findOne({ username: req.body.username });
     if (!user) {
-      return res.status(404).send({ message: "Incorrect Email or Password" });
+      return res.status(404).send({ message: "Incorrect Username or Password" });
     }
 
     const match = user.checkPassword(req.body.password);
     if (!match) {
-      return res.status(404).send({ message: "Incorrect Email or Password" });
+      return res.status(404).send({ message: "Incorrect Username or Password" });
     }    
     const token = newToken(user);
 
